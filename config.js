@@ -19,6 +19,27 @@ window.DIRECTORY_CONFIG = {
   // Contact email for listing requests and corrections (optional)
   contactEmail: "",
 
-  // Where the business list lives. Keep this as-is unless you move the file.
+  // Backup business list, used only if the accounts database below isn't set up.
   dataFile: "data/businesses.csv",
+
+  // ---- Business accounts (Supabase) ----
+  // From Supabase: Project Settings → API. Both values are meant to be
+  // public; your data is protected by the rules in supabase/setup.sql.
+  // While these are blank, the site uses the backup list above.
+  supabaseUrl: "",
+  supabaseAnonKey: "",
+
+  // Categories owners can pick from
+  categories: [
+    "Food & Drink",
+    "Beauty & Wellness",
+    "Home & Garden",
+    "Repair & Auto",
+    "Farm & Produce",
+    "Pets",
+    "Events & Photography",
+    "Crafts & Handmade",
+    "Services",
+    "Other",
+  ],
 };

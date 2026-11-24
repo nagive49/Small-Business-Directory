@@ -27,7 +27,10 @@
     $("tagline").textContent = config.tagline || "";
 
     let addHref = "";
-    if (config.submitFormUrl) {
+    if (config.supabaseUrl && config.supabaseAnonKey) {
+      addHref = "account.html";
+      $("business-login").hidden = false;
+    } else if (config.submitFormUrl) {
       addHref = config.submitFormUrl;
     } else if (config.contactEmail) {
       addHref = `mailto:${config.contactEmail}?subject=${encodeURIComponent("Add my business to the directory")}` +
@@ -40,9 +43,11 @@
       $("add-note").textContent = "Listing requests are opening soon.";
     }
     const external = /^https?:/.test(addHref);
-    if (addHref) $("add-business-2").href = addHref;
-    if (external) {
+    if (addHref) {
       $("add-business").href = addHref;
+      $("add-business-2").href = addHref;
+    }
+    if (external) {
       for (const id of ["add-business", "add-business-2"]) {
         $(id).target = "_blank";
         $(id).rel = "noopener";
@@ -194,8 +199,14 @@
       }, b.address));
       details.append(li);
     }
-    if (b.hours) details.append(el("li", {}, "🕒 " + b.hours));
+    if (b.hours) details.append(el("li", { className: "multiline" }, "🕒 " + b.hours));
     if (!details.children.length) details.remove();
+
+    if (b.prices) {
+      const more = el("details", { className: "card-prices" });
+      more.append(el("summary", {}, "Prices & specials"), el("p", { className: "multiline" }, b.prices));
+      card.querySelector(".card-links").before(more);
+    }
 
     const links = card.querySelector(".card-links");
     const fb = safeUrl(b.facebook), ig = safeUrl(b.instagram), web = safeUrl(b.website);
@@ -204,6 +215,12 @@
     if (web) links.append(linkButton(web, "Website", "btn-outline"));
     if (!links.children.length) links.remove();
 
+    if (b.updated_at) {
+      const d = new Date(b.updated_at);
+      if (!isNaN(d)) card.querySelector(".card-body").append(
+        el("p", { className: "card-updated" }, "Updated " + d.toLocaleDateString(undefined, { month: "short", day: "numeric", year: "numeric" })));
+    }
+
     return card;
   }
 
@@ -211,7 +228,7 @@
     if (category && b.category !== category) return false;
     if (town && b.town !== town) return false;
     if (!words.length) return true;
-    const hay = [b.name, b.category, b.description, b.town, b.address, b.tags].join(" ").toLowerCase();
+    const hay = [b.name, b.category, b.description, b.town, b.address, b.prices].join(" ").toLowerCase();
     return words.every((w) => hay.includes(w));
   }
 
@@ -248,14 +265,44 @@
     els.town.value = p.get("town") || "";
   }
 
+  // ---------- Loading listings ----------
+  // Live listings from the accounts database, when it's set up
+  async function loadFromDatabase() {
+    let db;
+    try {
+      db = await window.getSupabase();
+    } catch (err) {
+      console.error(err);
+      return null;
+    }
+    if (!db) return null;
+    const { data, error } = await db.from("directory").select("*");
+    if (error) {
+      console.error("Database error, using backup list:", error);
+      return null;
+    }
+    const clean = (v) => (v == null ? "" : String(v).trim());
+    return data.map((r) => ({
+      name: clean(r.name), category: clean(r.category), description: clean(r.description),
+      town: clean(r.town), address: clean(r.address), phone: clean(r.phone), email: clean(r.email),
+      facebook: clean(r.facebook), instagram: clean(r.instagram), website: clean(r.website),
+      hours: clean(r.hours), prices: clean(r.prices), logo: clean(r.logo_url), cover: clean(r.cover_url),
+      updated_at: r.updated_at,
+    })).filter((b) => b.name);
+  }
+
+  async function loadFromCSV() {
+    const res = await fetch(config.dataFile || "data/businesses.csv", { cache: "no-cache" });
+    if (!res.ok) throw new Error(res.status + " " + res.statusText);
+    return parseCSV(await res.text());
+  }
+
   // ---------- Start ----------
   async function init() {
     applyConfig();
     try {
-      const res = await fetch(config.dataFile || "data/businesses.csv", { cache: "no-cache" });
-      if (!res.ok) throw new Error(res.status + " " + res.statusText);
-      businesses = parseCSV(await res.text())
-        .sort((a, b) => a.name.localeCompare(b.name));
+      businesses = (await loadFromDatabase()) || (await loadFromCSV());
+      businesses.sort((a, b) => a.name.localeCompare(b.name));
     } catch (err) {
       els.error.hidden = false;
       els.error.textContent = location.protocol === "file:"

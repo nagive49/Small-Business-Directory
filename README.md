@@ -4,12 +4,18 @@ A directory for all types of small businesses that do not show up on Google — 
 
 It's a simple website with no server, database, or monthly cost. The whole business list is one spreadsheet file.
 
+## Business accounts
+
+Owners can sign in, update their own listing (photos, hours, prices, details) and submit new businesses for your approval. To turn this on, follow **[SETUP-ACCOUNTS.md](SETUP-ACCOUNTS.md)**. Until then, the site uses the spreadsheet list described below.
+
 ## How it works
 
 | File | What it's for |
 | --- | --- |
 | `data/businesses.csv` | **The business list.** One row per business. Open it in Excel or Google Sheets. |
 | `config.js` | Site name, your area, tagline, and where "Add your business" goes. |
+| `account.html`, `account.js` | Business owner sign-in and listing editor, plus your admin review area. |
+| `supabase/setup.sql` | Database setup for business accounts. |
 | `index.html`, `styles.css`, `app.js` | The website itself. You shouldn't need to touch these. |
 
 Visitors can search by keyword, filter by category or town, and tap through to each business's Facebook page, call them, or get directions. Filtered views can be shared (the URL remembers the search).

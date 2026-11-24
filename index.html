@@ -12,7 +12,10 @@
     <div class="wrap">
       <h1 id="site-name">Local Business Directory</h1>
       <p id="tagline" class="tagline"></p>
-      <a id="add-business" class="btn btn-primary" href="#add">+ Add your business</a>
+      <div class="header-actions">
+        <a id="add-business" class="btn btn-primary" href="#add">+ Add your business</a>
+        <a id="business-login" class="btn btn-ghost" href="account.html" hidden>Business login</a>
+      </div>
     </div>
   </header>
 
@@ -75,6 +78,7 @@
   </template>
 
   <script src="config.js"></script>
+  <script src="supabase-client.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
