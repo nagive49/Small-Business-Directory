@@ -14,7 +14,7 @@ window.DIRECTORY_CONFIG = {
   // Where business owners go to ask to be listed.
   // Paste a Google Form (or similar) link here. If left blank, the
   // "Add your business" button uses the email address below instead.
-  submitFormUrl: "",
+  submitFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSfCKcDG-KE5ebsmk4vQy31H0coYaQWHozvYn8VzgK0FCkK9tQ/viewform",
 
   // Contact email for listing requests and corrections (optional)
   contactEmail: "",
