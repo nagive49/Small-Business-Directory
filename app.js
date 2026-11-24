@@ -95,6 +95,25 @@
     } catch { return ""; }
   }
 
+  // Image columns can hold a file name from the images/ folder or a full web address
+  function imageUrl(value) {
+    if (!value) return "";
+    if (/^https?:\/\//i.test(value)) return safeUrl(value);
+    return "images/" + value.replace(/^\/+|^images\//g, "").split("/").map(encodeURIComponent).join("/");
+  }
+
+  function initials(name) {
+    const words = name.replace(/^the\s+/i, "").split(/\s+/).filter((w) => /[a-z0-9]/i.test(w));
+    return words.slice(0, 2).map((w) => w.match(/[a-z0-9]/i)[0].toUpperCase()).join("");
+  }
+
+  // Stable color per business, so placeholder banners differ from card to card
+  function hueFor(name) {
+    let h = 0;
+    for (const c of name) h = (h * 31 + c.charCodeAt(0)) % 360;
+    return h;
+  }
+
   function el(tag, props = {}, text) {
     const node = document.createElement(tag);
     Object.assign(node, props);
@@ -125,6 +144,26 @@
   function renderCard(b) {
     const card = els.template.content.firstElementChild.cloneNode(true);
     card.querySelector(".card-name").textContent = b.name;
+    card.style.setProperty("--hue", hueFor(b.name));
+
+    // Cover photo: falls back to a colored banner
+    const cover = card.querySelector(".card-cover-img");
+    const coverSrc = imageUrl(b.cover);
+    if (coverSrc) {
+      cover.src = coverSrc;
+      cover.alt = `${b.name} cover photo`;
+      cover.addEventListener("error", () => cover.remove());
+    } else cover.remove();
+
+    // Profile picture / logo: falls back to the business's initials
+    const avatar = card.querySelector(".card-avatar-img");
+    card.querySelector(".card-initials").textContent = initials(b.name);
+    const logoSrc = imageUrl(b.logo);
+    if (logoSrc) {
+      avatar.src = logoSrc;
+      avatar.alt = `${b.name} logo`;
+      avatar.addEventListener("error", () => avatar.remove());
+    } else avatar.remove();
 
     const badge = card.querySelector(".card-category");
     if (b.category) badge.textContent = b.category; else badge.remove();

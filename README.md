@@ -31,6 +31,8 @@ Each row in `data/businesses.csv` has these columns. Only `name` is required, bu
 | `instagram` | (optional) |
 | `website` | (optional) |
 | `hours` | Fri–Sun 8am–2pm |
+| `logo` | `mad-batter-logo.jpg` — round profile picture (optional) |
+| `cover` | `mad-batter-cover.jpg` — wide banner photo (optional) |
 
 Add one row per business; the site picks up new rows automatically.
 
@@ -38,6 +40,15 @@ Tips:
 - Keep category names consistent (e.g. always "Food & Drink", not sometimes "Food"). The category buttons are built from whatever you type.
 - If you edit in Google Sheets, use **File → Download → Comma-separated values (.csv)** and replace the file.
 - Get the business owner's OK before listing them, especially for home-based businesses — don't list a home address unless they want it shown.
+
+## Photos
+
+Put image files in the `images/` folder and type just the file name in the `logo` or `cover` column. A full web address also works, but avoid links copied from Facebook images — they expire.
+
+- **Logo:** square, at least 300×300 pixels. It's shown in a circle, so keep anything important away from the corners.
+- **Cover:** wide, roughly 1200×525 pixels (16:7). The edges may be trimmed on some screens.
+
+Businesses without photos get a colored banner and their initials automatically.
 
 ## Letting businesses sign up
 

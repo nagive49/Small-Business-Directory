@@ -59,14 +59,18 @@
 
   <template id="card-template">
     <article class="card">
-      <div class="card-head">
-        <h3 class="card-name"></h3>
-        <span class="badge card-category"></span>
+      <div class="card-cover"><img class="card-cover-img" alt="" loading="lazy"></div>
+      <div class="card-avatar"><img class="card-avatar-img" alt="" loading="lazy"><span class="card-initials"></span></div>
+      <div class="card-body">
+        <div class="card-head">
+          <h3 class="card-name"></h3>
+          <span class="badge card-category"></span>
+        </div>
+        <p class="card-town"></p>
+        <p class="card-desc"></p>
+        <ul class="card-details"></ul>
+        <div class="card-links"></div>
       </div>
-      <p class="card-town"></p>
-      <p class="card-desc"></p>
-      <ul class="card-details"></ul>
-      <div class="card-links"></div>
     </article>
   </template>
 
