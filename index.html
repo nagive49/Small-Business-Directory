@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local Business Directory</title>
+  <meta name="description" content="A directory of local small businesses, including the ones you can only find on Facebook.">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap">
+      <h1 id="site-name">Local Business Directory</h1>
+      <p id="tagline" class="tagline"></p>
+      <a id="add-business" class="btn btn-primary" href="#add">+ Add your business</a>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="filters" aria-label="Search and filter">
+      <label class="search">
+        <span class="visually-hidden">Search businesses</span>
+        <input id="search" type="search" placeholder="Search by name, service, or keyword…" autocomplete="off">
+      </label>
+      <div class="selects">
+        <label>
+          <span class="visually-hidden">Category</span>
+          <select id="category-filter"><option value="">All categories</option></select>
+        </label>
+        <label>
+          <span class="visually-hidden">Town</span>
+          <select id="town-filter"><option value="">All towns</option></select>
+        </label>
+      </div>
+    </section>
+
+    <div id="category-chips" class="chips" aria-label="Quick categories"></div>
+
+    <p id="result-count" class="result-count" aria-live="polite"></p>
+
+    <section id="results" class="grid" aria-label="Businesses"></section>
+
+    <p id="empty" class="empty" hidden>No businesses match that search. Try a different word or clear the filters.</p>
+    <p id="error" class="empty" hidden></p>
+
+    <section id="add" class="add-section">
+      <h2>Own a local business?</h2>
+      <p>Get listed for free. All we need is your business name, what you do, your town, and your Facebook page link.</p>
+      <a id="add-business-2" class="btn btn-primary" href="#">Request a listing</a>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Spot a mistake or a business that closed? <a id="corrections-link" href="#add">Let us know.</a></p>
+    </div>
+  </footer>
+
+  <template id="card-template">
+    <article class="card">
+      <div class="card-head">
+        <h3 class="card-name"></h3>
+        <span class="badge card-category"></span>
+      </div>
+      <p class="card-town"></p>
+      <p class="card-desc"></p>
+      <ul class="card-details"></ul>
+      <div class="card-links"></div>
+    </article>
+  </template>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,166 @@
+:root {
+  --bg: #f7f5f0;
+  --surface: #ffffff;
+  --text: #1f2328;
+  --muted: #5d6470;
+  --border: #e3ded3;
+  --accent: #2f6f4f;
+  --accent-text: #ffffff;
+  --accent-soft: #e4f0e8;
+  --fb: #1877f2;
+  --header-bg: #2f6f4f;
+  --header-text: #ffffff;
+  --radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #15181c;
+    --surface: #1e2328;
+    --text: #e8eaed;
+    --muted: #a0a7b1;
+    --border: #2e353d;
+    --accent: #5fb98a;
+    --accent-text: #0e1a13;
+    --accent-soft: #23342b;
+    --fb: #4c95f5;
+    --header-bg: #1d3a2b;
+    --header-text: #f1f5f2;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.5;
+}
+
+.wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+a { color: var(--accent); }
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* Header */
+.site-header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  padding: 40px 0 32px;
+}
+.site-header h1 { margin: 0 0 8px; font-size: clamp(1.6rem, 4vw, 2.4rem); }
+.tagline { margin: 0 0 20px; max-width: 640px; opacity: 0.9; }
+.site-header .btn-primary { background: var(--header-text); color: var(--header-bg); }
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 600;
+  text-decoration: none;
+  border: 1px solid transparent;
+  font-size: 0.95rem;
+}
+.btn-primary { background: var(--accent); color: var(--accent-text); }
+.btn-outline { border-color: var(--border); color: var(--text); background: var(--surface); }
+.btn-fb { background: var(--fb); color: #fff; }
+.btn:hover { filter: brightness(1.08); }
+
+/* Filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 24px 0 12px;
+}
+.search { flex: 1 1 320px; }
+.selects { display: flex; gap: 12px; flex-wrap: wrap; flex: 1 1 320px; }
+.selects label { flex: 1 1 140px; }
+input, select {
+  width: 100%;
+  padding: 12px 14px;
+  font: inherit;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Chips */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 8px; }
+.chip {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font: inherit;
+  font-size: 0.875rem;
+  cursor: pointer;
+}
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+
+.result-count { color: var(--muted); font-size: 0.9rem; margin: 12px 0; }
+
+/* Cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; }
+.card-name { margin: 0; font-size: 1.1rem; }
+.badge {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.card-town { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.card-desc { margin: 4px 0; }
+.card-details { list-style: none; padding: 0; margin: 4px 0; font-size: 0.9rem; color: var(--muted); }
+.card-details li { margin: 2px 0; }
+.card-details a { color: inherit; }
+.card-links { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 10px; }
+.card-links .btn { padding: 7px 12px; font-size: 0.85rem; }
+
+.empty { text-align: center; color: var(--muted); padding: 32px 0; }
+
+/* Add section */
+.add-section {
+  margin: 48px 0;
+  padding: 28px;
+  background: var(--accent-soft);
+  border-radius: var(--radius);
+  text-align: center;
+}
+.add-section h2 { margin-top: 0; }
+
+.site-footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; padding: 16px 0 32px; }
