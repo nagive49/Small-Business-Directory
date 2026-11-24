@@ -21,20 +21,26 @@
   // ---------- Setup from config ----------
   function applyConfig() {
     const name = config.siteName || "Local Business Directory";
-    const title = config.areaName ? `${name} · ${config.areaName}` : name;
+    const title = config.areaName && !name.includes(config.areaName) ? `${name} · ${config.areaName}` : name;
     $("site-name").textContent = name;
     document.title = title;
     $("tagline").textContent = config.tagline || "";
 
-    let addHref = "#add";
+    let addHref = "";
     if (config.submitFormUrl) {
       addHref = config.submitFormUrl;
     } else if (config.contactEmail) {
       addHref = `mailto:${config.contactEmail}?subject=${encodeURIComponent("Add my business to the directory")}` +
         `&body=${encodeURIComponent("Business name:\nWhat you do:\nTown:\nFacebook page link:\nPhone (optional):\nAddress (optional):\nHours (optional):\n")}`;
     }
+    if (!addHref) {
+      // No way to collect requests yet: hide the buttons instead of linking nowhere
+      $("add-business").hidden = true;
+      $("add-business-2").hidden = true;
+      $("add-note").textContent = "Listing requests are opening soon.";
+    }
     const external = /^https?:/.test(addHref);
-    $("add-business-2").href = addHref;
+    if (addHref) $("add-business-2").href = addHref;
     if (external) {
       $("add-business").href = addHref;
       for (const id of ["add-business", "add-business-2"]) {
@@ -135,6 +141,11 @@
       li.append(el("a", { href: "tel:" + b.phone.replace(/[^\d+]/g, "") }, b.phone));
       details.append(li);
     }
+    if (b.email) {
+      const li = el("li", {}, "✉️ ");
+      li.append(el("a", { href: "mailto:" + b.email }, b.email));
+      details.append(li);
+    }
     if (b.address) {
       const li = el("li", {}, "📍 ");
       const q = [b.address, b.town].filter(Boolean).join(", ");
@@ -172,7 +183,7 @@
 
     const list = businesses.filter((b) => matches(b, words, category, town));
     els.results.replaceChildren(...list.map(renderCard));
-    els.count.textContent = `Showing ${list.length} of ${businesses.length} businesses`;
+    els.count.textContent = `Showing ${list.length} of ${businesses.length} ${businesses.length === 1 ? "business" : "businesses"}`;
     els.empty.hidden = list.length > 0;
 
     for (const chip of els.chips.children) {

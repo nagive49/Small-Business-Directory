@@ -26,12 +26,13 @@ Each row in `data/businesses.csv` has these columns. Only `name` is required, bu
 | `town` | Maple Springs |
 | `address` | 18 Main St (leave blank for home-based businesses) |
 | `phone` | 555-0101 |
+| `email` | (optional) shown on the listing |
 | `facebook` | https://www.facebook.com/rosieshomebakery |
 | `instagram` | (optional) |
 | `website` | (optional) |
 | `hours` | Fri–Sun 8am–2pm |
 
-The file ships with **sample rows marked "SAMPLE"** so you can see how it looks. Delete those once you add real businesses.
+Add one row per business; the site picks up new rows automatically.
 
 Tips:
 - Keep category names consistent (e.g. always "Food & Drink", not sometimes "Food"). The category buttons are built from whatever you type.

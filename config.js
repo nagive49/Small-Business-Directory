@@ -3,10 +3,10 @@
 // ---------------------------------------------------------------
 window.DIRECTORY_CONFIG = {
   // Shown in the header and browser tab
-  siteName: "Local Business Directory",
+  siteName: "Elkhart County Small Business Directory",
 
   // Your area, e.g. "Greene County" or "the Tri-Town Area"
-  areaName: "Our Area",
+  areaName: "Elkhart County",
 
   // Short line under the title
   tagline: "Find the small businesses your neighbors already love — even the ones that aren't on Google.",

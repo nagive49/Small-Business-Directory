@@ -164,3 +164,6 @@ input:focus, select:focus { outline: 2px solid var(--accent); outline-offset: 1p
 .add-section h2 { margin-top: 0; }
 
 .site-footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9rem; padding: 16px 0 32px; }
+.add-note:empty { display: none; }
+.add-note { font-weight: 600; margin-bottom: 0; }
+[hidden] { display: none !important; }
