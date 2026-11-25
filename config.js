@@ -26,8 +26,8 @@ window.DIRECTORY_CONFIG = {
   // From Supabase: Project Settings → API. Both values are meant to be
   // public; your data is protected by the rules in supabase/setup.sql.
   // While these are blank, the site uses the backup list above.
-  supabaseUrl: "",
-  supabaseAnonKey: "",
+  supabaseUrl: "https://surdgkfypoqsjpaenway.supabase.co",
+  supabaseAnonKey: "sb_publishable_huZeSi60vpYYEniuCw6Ozw_pFkrmsYW",
 
   // Categories owners can pick from
   categories: [

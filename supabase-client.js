@@ -1,7 +1,7 @@
 // Loads the Supabase library only when accounts are configured in config.js.
 (function () {
   "use strict";
-  const LIB = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js";
+  const LIB = "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.117.2/dist/umd/supabase.js";
   let clientPromise = null;
 
   window.getSupabase = function () {
