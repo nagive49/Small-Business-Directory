@@ -118,7 +118,10 @@ create policy "admins can delete" on public.businesses
 
 revoke all on public.businesses from anon;
 revoke all on public.admins from anon, authenticated;
+-- Explicit grants, for projects created with "automatically expose new tables" turned off
+grant usage on schema public to anon, authenticated;
 grant select, insert, update, delete on public.businesses to authenticated;
+grant execute on function public.current_email() to anon, authenticated;
 grant execute on function public.is_admin() to anon, authenticated;
 
 -- ---------- Public view (what the website shows everyone) ----------
